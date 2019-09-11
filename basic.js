@@ -95,6 +95,10 @@ function initHarmony(secValue) {
     displayAnalogous();
   } else if (secValue == "Monochromatic") {
     displayMonochromatic();
+  } else if (secValue == "Triad") {
+    displayTriad();
+  } else if (secValue == "Complementary") {
+    displayComplementary();
   }
 }
 
@@ -129,7 +133,7 @@ function displayAnalogous() {
   HSL.s = Number(HSL.s);
   HSL.l = Number(HSL.l);
 
-  var hNew = HSL.h;
+  let hNew = HSL.h;
 
   if (hNew < 30) {
     hNew = hNew + 360 - 30;
@@ -178,6 +182,60 @@ function displayMonochromatic() {
 
   box1.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 0.7)}%)`;
   box2.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 0.85)}%)`;
-  box3.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 1.15)}%)`;
-  box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 1.3)}%)`;
+  if (HSL.l == 0) {
+    box3.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l + 15)}%)`;
+    box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l + 30)}%)`;
+  } else {
+    box3.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 1.15)}%)`;
+    box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 1.3)}%)`;
+  }
+}
+
+
+function displayTriad() {
+  let HSL = calcHSL();
+  HSL.h = Number(HSL.h);
+  HSL.s = Number(HSL.s);
+  HSL.l = Number(HSL.l);
+
+  let hNew = HSL.h;
+  if (hNew < 60) {
+    hNew = hNew + 300;
+  } else {
+    hNew = hNew - 60;
+  }
+  box2.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
+  box1.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${Math.round(HSL.l * 0.5)}%)`;
+
+  hNew = HSL.h;
+  if (hNew > 300) {
+    hNew = (hNew - 300) + 60;
+  } else {
+    hNew = hNew + 60;
+  }
+  box3.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
+  box4.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${Math.round(HSL.l * 0.5)}%)`;
+}
+
+function displayComplementary() {
+  let HSL = calcHSL();
+  HSL.h = Number(HSL.h);
+  HSL.s = Number(HSL.s);
+  HSL.l = Number(HSL.l);
+
+  box1.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 0.7)}%)`;
+
+  box2.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 1.15)}%)`;
+
+  if (HSL.h > 180) {
+    HSL.h = HSL.h - 180;
+  } else if (HSL.h <= 180) {
+    HSL.h = HSL.h + 180;
+  }
+  box3.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${HSL.l}%)`;
+  if (HSL.l >= 50) {
+    box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${HSL.l * 0.8}%)`;
+  } else {
+    box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${HSL.l * 1.2}%)`;
+  }
 }

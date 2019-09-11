@@ -17,7 +17,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    "harmonies . picker . ."
+    "harmonies harmonies picker . ."
     "box1 box2 boxMain box3 box4"
     ". . info . .";
 }
