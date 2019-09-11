@@ -10,48 +10,55 @@
 body {
   background-color: black;
 }
-
+h1{
+  color: white;
+  text-align: center;
+  padding-top: 30px;
+}
 #colorSelector {
+  border-radius: 10%;
+  padding-top: 100px;
   background-color: white;
-  margin: 0 10px;
+  margin: 2vw 10vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr 1fr 0.4fr;
   grid-template-areas:
     "harmonies harmonies picker . ."
-    "box1 box2 boxMain box3 box4"
+    "boxesAll boxesAll boxesAll boxesAll boxesAll"
     ". . info . .";
 }
 
+.colorboxes{
+  grid-area: boxesAll;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20px,1fr));;
+}
 .harmonies {
   grid-area: harmonies;
+  margin: auto 0;
+
 }
 .input {
   grid-area: picker;
+  margin: 0 auto;
+  justify-self: center;
 }
-
-#colorBox1 {
-  grid-area: box1;
+#colorSelector > div.input > p{
+  display: inline-block;
 }
-#colorBox2 {
-  grid-area: box2;
-}
-#colorBoxMain {
-  grid-area: boxMain;
-}
-#colorBox3 {
-  grid-area: box3;
-}
-#colorBox4 {
-  grid-area: box4;
+input{
+  display: inline-block;
 }
 
 #infoBox {
+  margin: auto 0;
   grid-area: info;
+  text-align: center;
 }
 .box {
-  max-width: 150px;
-  height: 150px;
   background-color: white;
+  padding-top: 100%;
 }
 #colorBoxMain {
   background-color: #ff0000;
