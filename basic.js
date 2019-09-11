@@ -1,16 +1,24 @@
 "use strict";
 
-let selector = document.querySelector("#colorSelector > input[type=color]");
-const box = document.querySelector("#colorSelector > div");
+let selector = document.querySelector(
+  "#colorSelector > div.input > input[type=color]"
+);
+const box = document.querySelector("#colorBoxMain");
+const harmony = document.querySelector(".harmonyPicker");
+const box1 = document.querySelector("#colorBox1");
+const box2 = document.querySelector("#colorBox2");
+const box3 = document.querySelector("#colorBox3");
+const box4 = document.querySelector("#colorBox4");
 
-selector.addEventListener("input", function() {
-  changeColor(this.value);
+selector.addEventListener("input", function () {
   showHex(this.value);
   showRGB(this.value);
+  changeColorMain(this.value);
+  initHarmony(harmony.value);
 });
 
-function changeColor(hex) {
-  box.style.setProperty("--box-clr", hex);
+function changeColorMain(hex) {
+  box.style.backgroundColor = hex;
 }
 
 function showHex(hex) {
@@ -69,5 +77,86 @@ function showHSL(r, g, b) {
   //console.log("hsl(%f,%f%,% f%)", h, s, l); // just for testing
   document.querySelector("#hsl").textContent = `HSL: ${Math.round(
     h
-  )}°, ${Math.round(s)}%, ${Math.round(l)}%`;
+  )}, ${Math.round(s)}%, ${Math.round(l)}%`;
+}
+
+harmony.addEventListener("change", initHarmony);
+
+function initHarmony(secValue) {
+  let checkpoint = event.target.value.startsWith("#");
+  if (checkpoint) {
+  } else {
+    secValue = event.target.value;
+  }
+
+  if (secValue == "None") {
+    revertToWhite();
+  } else if (secValue == "Analogous") {
+    calcAnalogous();
+  } else {
+  }
+}
+
+function revertToWhite() {
+  box1.style.backgroundColor = "white";
+  box2.style.backgroundColor = "white";
+  box3.style.backgroundColor = "white";
+  box4.style.backgroundColor = "white";
+}
+
+function calcAnalogous() {
+  const hslColor = document.querySelector("p#hsl").textContent;
+  let h = 0,
+    s = 0,
+    l = 0;
+
+  h = hslColor.substring(hslColor.indexOf(" ") + 1, hslColor.indexOf(","));
+  s = hslColor.substring(hslColor.indexOf(",") + 2, hslColor.indexOf("%"));
+  l = hslColor.substring(hslColor.indexOf("%") + 3, hslColor.length - 1);
+
+  //console.log(h);
+  displayAnalogous(h, s, l);
+}
+
+function displayAnalogous(h, s, l) {
+  h = Number(h);
+  const baseH = h;
+
+  if (h < 30) {
+    h = h + 360 - 30;
+    box1.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  } else {
+    h = h - 30;
+    box1.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  }
+
+  h = baseH;
+
+  if (h < 15) {
+    h = h + 360 - 15;
+    box2.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  } else {
+    h = h - 15;
+    box2.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  }
+
+  h = baseH;
+
+  if (h > 345) {
+    h = (h - 345) + 15;
+    box3.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  } else {
+    h = h + 15;
+    box3.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  }
+
+  h = baseH;
+
+  if (h > 330) {
+    h = (h - 330) + 35;
+    box4.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  } else {
+    h = h + 30;
+    box4.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  }
 }
