@@ -99,6 +99,9 @@ function initHarmony(secValue) {
     displayTriad();
   } else if (secValue == "Complementary") {
     displayComplementary();
+  } else if (secValue == "Compound") {
+  } else if (secValue == "Shades") {
+    displayShades();
   }
 }
 
@@ -237,5 +240,23 @@ function displayComplementary() {
     box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${HSL.l * 0.8}%)`;
   } else {
     box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${HSL.l * 1.2}%)`;
+  }
+}
+
+function displayShades() {
+  let HSL = calcHSL();
+  HSL.h = Number(HSL.h);
+  HSL.s = Number(HSL.s);
+  HSL.l = Number(HSL.l);
+
+  box1.style.backgroundColor = `hsl(${HSL.h}, ${Math.round(HSL.s * 0.4)}%, ${HSL.l}%)`;
+  box2.style.backgroundColor = `hsl(${HSL.h}, ${Math.round(HSL.s * 0.8)}%, ${HSL.l}%)`;
+
+  if (HSL.s == 0) {
+    box3.style.backgroundColor = `hsl(${HSL.h}, ${Math.round(HSL.s + 25)}%, ${HSL.l}%)`;
+    box4.style.backgroundColor = `hsl(${HSL.h}, ${Math.round(HSL.s + 50)}%, ${HSL.l}%)`;
+  } else {
+    box3.style.backgroundColor = `hsl(${HSL.h}, ${Math.round(HSL.s * 0.6)}%, ${HSL.l}%)`;
+    box4.style.backgroundColor = `hsl(${HSL.h}, ${Math.round(HSL.s * 0.2)}%, ${HSL.l}%)`;
   }
 }
