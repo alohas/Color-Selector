@@ -92,8 +92,9 @@ function initHarmony(secValue) {
   if (secValue == "None") {
     revertToWhite();
   } else if (secValue == "Analogous") {
-    calcAnalogous();
-  } else {
+    displayAnalogous();
+  } else if (secValue == "Monochromatic") {
+    displayMonochromatic();
   }
 }
 
@@ -104,59 +105,79 @@ function revertToWhite() {
   box4.style.backgroundColor = "white";
 }
 
-function calcAnalogous() {
+function calcHSL() {
   const hslColor = document.querySelector("p#hsl").textContent;
-  let h = 0,
-    s = 0,
-    l = 0;
 
-  h = hslColor.substring(hslColor.indexOf(" ") + 1, hslColor.indexOf(","));
-  s = hslColor.substring(hslColor.indexOf(",") + 2, hslColor.indexOf("%"));
-  l = hslColor.substring(hslColor.indexOf("%") + 3, hslColor.length - 1);
+  let hslValues = {
+    h: 0,
+    s: 0,
+    l: 0
+  };
 
-  //console.log(h);
-  displayAnalogous(h, s, l);
+  hslValues.h = hslColor.substring(hslColor.indexOf(" ") + 1, hslColor.indexOf(","));
+  hslValues.s = hslColor.substring(hslColor.indexOf(",") + 2, hslColor.indexOf("%"));
+  hslValues.l = hslColor.substring(hslColor.indexOf("%") + 3, hslColor.length - 1);
+
+  //console.log(hslValues);
+  return hslValues;
 }
 
-function displayAnalogous(h, s, l) {
-  h = Number(h);
-  const baseH = h;
+function displayAnalogous() {
+  let HSL = calcHSL();
 
-  if (h < 30) {
-    h = h + 360 - 30;
-    box1.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  HSL.h = Number(HSL.h);
+  HSL.s = Number(HSL.s);
+  HSL.l = Number(HSL.l);
+
+  var hNew = HSL.h;
+
+  if (hNew < 30) {
+    hNew = hNew + 360 - 30;
+    box1.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   } else {
-    h = h - 30;
-    box1.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+    hNew = hNew - 30;
+    box1.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   }
 
-  h = baseH;
+  hNew = HSL.h;
 
-  if (h < 15) {
-    h = h + 360 - 15;
-    box2.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  if (hNew < 15) {
+    hNew = hNew + 360 - 15;
+    box2.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   } else {
-    h = h - 15;
-    box2.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+    hNew = hNew - 15;
+    box2.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   }
 
-  h = baseH;
+  hNew = HSL.h;
 
-  if (h > 345) {
-    h = (h - 345) + 15;
-    box3.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  if (hNew > 345) {
+    hNew = (hNew - 345) + 15;
+    box3.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   } else {
-    h = h + 15;
-    box3.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+    hNew = hNew + 15;
+    box3.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   }
 
-  h = baseH;
+  hNew = HSL.h;
 
-  if (h > 330) {
-    h = (h - 330) + 35;
-    box4.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+  if (hNew > 330) {
+    hNew = (hNew - 330) + 35;
+    box4.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   } else {
-    h = h + 30;
-    box4.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+    hNew = hNew + 35;
+    box4.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;
   }
+}
+
+function displayMonochromatic() {
+  let HSL = calcHSL();
+  HSL.h = Number(HSL.h);
+  HSL.s = Number(HSL.s);
+  HSL.l = Number(HSL.l);
+
+  box1.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 0.7)}%)`;
+  box2.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 0.85)}%)`;
+  box3.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 1.15)}%)`;
+  box4.style.backgroundColor = `hsl(${HSL.h}, ${HSL.s}%, ${Math.round(HSL.l * 1.3)}%)`;
 }

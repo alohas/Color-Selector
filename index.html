@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="colorSelector">
-      <div class="input">
-        <p>Select color :</p>
-        <input type="color" value="#ff0000" />
-      </div>
-      <div class="harmonies">
-        <select class="harmonyPicker">
-          <option value="None">None</option>
-          <option value="Analogous">Analogous</option>
-        </select>
-      </div>
 
-      <div class="box" id="colorBox1"></div>
-      <div class="box" id="colorBox2"></div>
-      <div class="box" id="colorBoxMain"></div>
-      <div class="box" id="colorBox3"></div>
-      <div class="box" id="colorBox4"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-      <div id="infoBox">
-        <p id="hex">HEX: #FF0000</p>
-        <p id="rgb">RGB: 255, 0, 0</p>
-        <p id="hsl">HSL: 0, 100%, 50%</p>
-      </div>
+<body>
+  <div id="colorSelector">
+    <div class="input">
+      <p>Select color :</p>
+      <input type="color" value="#ff0000" />
+    </div>
+    <div class="harmonies">
+      <select class="harmonyPicker">
+        <option value="None">None</option>
+        <option value="Analogous">Analogous</option>
+        <option value="Monochromatic">Monochromatic</option>
+      </select>
     </div>
 
-    <script src="basic.js"></script>
-  </body>
+    <div class="box" id="colorBox1"></div>
+    <div class="box" id="colorBox2"></div>
+    <div class="box" id="colorBoxMain"></div>
+    <div class="box" id="colorBox3"></div>
+    <div class="box" id="colorBox4"></div>
+
+    <div id="infoBox">
+      <p id="hex">HEX: #FF0000</p>
+      <p id="rgb">RGB: 255, 0, 0</p>
+      <p id="hsl">HSL: 0, 100%, 50%</p>
+    </div>
+  </div>
+
+  <script src="basic.js"></script>
+</body>
+
 </html>
