@@ -13,20 +13,22 @@
   <h1>Color Picker</h1>
   <div id="colorSelector">
     <div class="input">
-      <p>Select color :</p>
-      <input type="color" value="#ff0000" />
+      <label>Select Color:
+        <input type="color" value="#ff0000" />
     </div>
+    </label>
     <div class="harmonies">
-      <p>Harmony:</p>
-      <select class="harmonyPicker">
-        <option value="None">None</option>
-        <option value="Analogous">Analogous</option>
-        <option value="Monochromatic">Monochromatic</option>
-        <option value="Triad">Triad</option>
-        <option value="Complementary">Complementary</option>
-        <option value="Compound">Compound</option>
-        <option value="Shades">Shades</option>
-      </select>
+      <label>Harmony:
+        <select class="harmonyPicker">
+          <option value="None">None</option>
+          <option value="Analogous">Analogous</option>
+          <option value="Monochromatic">Monochromatic</option>
+          <option value="Triad">Triad</option>
+          <option value="Complementary">Complementary</option>
+          <option value="Compound">Compound</option>
+          <option value="Shades">Shades</option>
+        </select>
+      </label>
     </div>
     <div class="colorboxes">
       <div class="box" id="colorBox1"></div>
@@ -37,8 +39,8 @@
     </div>
     <div id="infoBox">
       <p id="hex">HEX: #FF0000</p>
-      <p id="rgb">RGB: 255, 0, 0</p>
-      <p id="hsl">HSL: 0, 100%, 50%</p>
+      <p id="rgb">rgb(255, 0, 0)</p>
+      <p id="hsl">hsl(0, 100%, 50%)</p>
     </div>
   </div>
 

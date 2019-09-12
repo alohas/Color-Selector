@@ -1,10 +1,8 @@
 "use strict";
 
-let selector = document.querySelector(
-  "#colorSelector > div.input > input[type=color]"
-);
+let selector = document.querySelector("#colorSelector > div.input > label > input[type=color]");
 const box = document.querySelector("#colorBoxMain");
-const harmony = document.querySelector(".harmonyPicker");
+const harmony = document.querySelector("#colorSelector > div.harmonies > label > select");
 const box1 = document.querySelector("#colorBox1");
 const box2 = document.querySelector("#colorBox2");
 const box3 = document.querySelector("#colorBox3");
@@ -34,7 +32,6 @@ function showRGB(hex) {
   g = parseInt(hex.substring(3, 4) + hex.substring(4, 5), 16);
   b = parseInt(hex.substring(5, 6) + hex.substring(6, 7), 16);
 
-  //console.log(r, g, b);
   document.querySelector("#rgb").textContent = `RGB: ${r}, ${g}, ${b}`;
   showHSL(r, g, b);
 }
@@ -74,10 +71,9 @@ function showHSL(r, g, b) {
   s *= 100;
   l *= 100;
 
-  //console.log("hsl(%f,%f%,% f%)", h, s, l); // just for testing
-  document.querySelector("#hsl").textContent = `HSL: ${Math.round(
+  document.querySelector("#hsl").textContent = `hsl(${Math.round(
     h
-  )}, ${Math.round(s)}%, ${Math.round(l)}%`;
+  )}, ${Math.round(s)}%, ${Math.round(l)}%)`;
 }
 
 harmony.addEventListener("change", initHarmony);
@@ -115,18 +111,21 @@ function revertToWhite() {
 
 function calcHSL() {
   const hslColor = document.querySelector("p#hsl").textContent;
-
+  //here is problem
   let hslValues = {
     h: 0,
     s: 0,
     l: 0
   };
 
-  hslValues.h = hslColor.substring(hslColor.indexOf(" ") + 1, hslColor.indexOf(","));
+  hslValues.h = hslColor.substring(hslColor.indexOf("(") + 1, hslColor.indexOf(","));
   hslValues.s = hslColor.substring(hslColor.indexOf(",") + 2, hslColor.indexOf("%"));
-  hslValues.l = hslColor.substring(hslColor.indexOf("%") + 3, hslColor.length - 1);
+  hslValues.l = hslColor.substring(hslColor.indexOf("%") + 3, hslColor.length - 2);
 
-  //console.log(hslValues);
+  hslValues.h = Number(hslValues.h);
+  hslValues.s = Number(hslValues.s);
+  hslValues.l = Number(hslValues.l);
+
   return hslValues;
 }
 
@@ -138,7 +137,6 @@ function displayAnalogous() {
   HSL.l = Number(HSL.l);
 
   let hNew = HSL.h;
-
   if (hNew < 30) {
     hNew = hNew + 360 - 30;
     box1.style.backgroundColor = `hsl(${hNew}, ${HSL.s}%, ${HSL.l}%)`;

@@ -16,8 +16,7 @@ h1{
   padding-top: 30px;
 }
 #colorSelector {
-  border-radius: 10%;
-  padding-top: 100px;
+  padding: 20px 0;
   background-color: white;
   margin: 2vw 10vw;
   display: grid;
@@ -37,7 +36,7 @@ h1{
 .harmonies {
   grid-area: harmonies;
   margin: auto 0;
-
+  padding-left: 1em;
 }
 .input {
   grid-area: picker;
@@ -55,6 +54,7 @@ input{
   margin: auto 0;
   grid-area: info;
   text-align: center;
+  display: grid;
 }
 .box {
   background-color: white;
@@ -62,4 +62,29 @@ input{
 }
 #colorBoxMain {
   background-color: #ff0000;
+}
+@media (max-width:400px){
+#colorSelector{
+  grid-template-columns: 1fr;
+  grid-template-areas: "picker" 
+  "harmonies"
+  "boxesAll" 
+  "info";
+  margin-left: 0;
+  margin-right: 0;
+
+}
+.harmonies{
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.input{
+  padding: 10px 0;
+}
+#colorBoxMain{
+  border: solid black 2px;
+}
+#infobox{
+  padding: 10px ;
+}
 }
